@@ -220,14 +220,17 @@ const initialPosts = {
     console.log('Inicializando app.js...');
     renderPosts('storyweave', mockPosts.storyweave);
     renderPosts('dreams', mockPosts.dreams);
-    updateWallet();
+    // Atualiza saldo apenas se na página wallet.html
+    if (document.getElementById('weave-balance')) {
+      updateWallet();
+    }
   
     const postStoryBtn = document.getElementById('post-story-btn');
     if (postStoryBtn) {
       console.log('Associando evento ao botão post-story-btn');
       postStoryBtn.addEventListener('click', postStory);
     } else {
-      console.error('Botão post-story-btn não encontrado.');
+      console.log('Botão post-story-btn não encontrado. Ignorando.');
     }
   
     const postDreamBtn = document.getElementById('post-dream-btn');
@@ -235,19 +238,23 @@ const initialPosts = {
       console.log('Associando evento ao botão post-dream-btn');
       postDreamBtn.addEventListener('click', postDream);
     } else {
-      console.error('Botão post-dream-btn não encontrado.');
+      console.log('Botão post-dream-btn não encontrado. Ignorando.');
     }
   
     const withdrawBtn = document.getElementById('withdraw-btn');
     if (withdrawBtn) {
       console.log('Associando evento ao botão withdraw-btn');
       withdrawBtn.addEventListener('click', requestWithdraw);
+    } else {
+      console.log('Botão withdraw-btn não encontrado. Ignorando.');
     }
   
     const stakeBtn = document.getElementById('stake-btn');
     if (stakeBtn) {
       console.log('Associando evento ao botão stake-btn');
       stakeBtn.addEventListener('click', stakeWeave);
+    } else {
+      console.log('Botão stake-btn não encontrado. Ignorando.');
     }
   
     document.addEventListener('click', (event) => {
