@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DreamTales - Weave Stories & Dreams</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <h1>DreamTales</h1>
+    <button id="connect-wallet"><i class="fas fa-wallet"></i> Connect MetaMask</button>
+  </header>
+  <nav>
+    <button class="tab active" data-tab="storyweave"><i class="fas fa-book"></i> StoryWeave</button>
+    <button class="tab" data-tab="dreams"><i class="fas fa-moon"></i> Dreams</button>
+    <button class="tab" data-tab="wallet"><i class="fas fa-wallet"></i> Wallet</button>
+  </nav>
+  <main>
+    <!-- StoryWeave Feed -->
+    <section id="storyweave" class="tab-content active">
+      <div class="post-form">
+        <textarea id="storyweave-input" placeholder="Start a story (e.g., 'A knight enters a cursed forest...')"></textarea>
+        <select id="storyweave-category">
+          <option value="fantasy">Fantasy</option>
+          <option value="sci-fi">Sci-Fi</option>
+          <option value="mystery">Mystery</option>
+        </select>
+        <button onclick="postStory()">Post Story <span>+0.5 WEAVE</span></button>
+      </div>
+      <div class="feed" id="storyweave-feed">
+        <!-- Posts populated by JS -->
+      </div>
+    </section>
+    <!-- Dreams Feed -->
+    <section id="dreams" class="tab-content">
+      <div class="post-form">
+        <textarea id="dreams-input" placeholder="Share a dream (e.g., 'I dreamed of rats dancing...')"></textarea>
+        <select id="dreams-category">
+          <option value="nightmare">Nightmare</option>
+          <option value="surreal">Surreal</option>
+          <option value="inspiration">Inspiration</option>
+        </select>
+        <button onclick="postDream()">Post Dream <span>+0.5 WEAVE</span></button>
+      </div>
+      <div class="feed" id="dreams-feed">
+        <!-- Posts populated by JS -->
+      </div>
+    </section>
+    <!-- Wallet Section -->
+    <section id="wallet" class="tab-content">
+      <div class="wallet-container">
+        <h2>Wallet</h2>
+        <p>Address: <span id="wallet-address">Not connected</span></p>
+        <p>Balance: <span id="weave-balance">0 WEAVE</span></p>
+        <h3>Transaction History</h3>
+        <ul id="transaction-history">
+          <!-- History populated by JS -->
+        </ul>
+      </div>
+    </section>
+  </main>
+  <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
+  <script src="wallet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

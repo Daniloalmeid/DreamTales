@@ -1,0 +1,256 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  body {
+    background: linear-gradient(135deg, #f0f2f5, #e0e7ff);
+    padding: 20px;
+    min-height: 100vh;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: linear-gradient(90deg, #6200ea, #8b5cf6);
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  header h1 {
+    font-size: 28px;
+    font-weight: 600;
+  }
+  
+  #connect-wallet {
+    padding: 10px 20px;
+    background: #bb86fc;
+    border: none;
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+  }
+  
+  #connect-wallet:hover {
+    background: #9f67e0;
+    transform: scale(1.05);
+  }
+  
+  nav {
+    margin: 20px 0;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+  }
+  
+  .tab {
+    padding: 12px 25px;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+  
+  .tab.active {
+    background: #6200ea;
+    color: white;
+    border-color: #6200ea;
+  }
+  
+  .tab:hover {
+    background: #f1f5f9;
+  }
+  
+  .tab-content {
+    display: none;
+  }
+  
+  .tab-content.active {
+    display: block;
+  }
+  
+  .post-form {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  textarea {
+    width: 100%;
+    height: 120px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    resize: none;
+    font-size: 16px;
+  }
+  
+  select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+  }
+  
+  .post-form button {
+    padding: 12px 20px;
+    background: linear-gradient(90deg, #6200ea, #8b5cf6);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: transform 0.2s;
+  }
+  
+  .post-form button span {
+    font-size: 12px;
+    margin-left: 5px;
+  }
+  
+  .post-form button:hover {
+    transform: scale(1.05);
+  }
+  
+  .feed {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .post-card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in;
+  }
+  
+  .post-card p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  
+  .post-card .author {
+    color: #666;
+    font-style: italic;
+    font-size: 14px;
+  }
+  
+  .post-card .category {
+    color: #6200ea;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .post-card .actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+  }
+  
+  .post-card .action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: transform 0.2s;
+  }
+  
+  .post-card .like-btn i {
+    color: #e91e63;
+  }
+  
+  .post-card .like-btn.liked i {
+    animation: heartPulse 0.3s ease;
+  }
+  
+  .post-card .share-btn i {
+    color: #6200ea;
+  }
+  
+  .post-card .action-btn:hover {
+    transform: scale(1.1);
+  }
+  
+  .post-card .action-btn span {
+    font-size: 12px;
+    color: #666;
+  }
+  
+  .wallet-container {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .wallet-container p {
+    margin: 10px 0;
+    font-size: 16px;
+  }
+  
+  .wallet-container ul {
+    list-style: none;
+    margin-top: 10px;
+  }
+  
+  .wallet-container li {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes heartPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+  }
+  
+  /* Responsive */
+  @media (max-width: 600px) {
+    header {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    nav {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .post-form, .wallet-container {
+      padding: 15px;
+    }
+  
+    .post-card {
+      padding: 15px;
+    }
+  }
