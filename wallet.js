@@ -2,10 +2,15 @@
 let provider = null;
 let signer = null;
 let walletAddress = '';
-let siteWeaveBalance = 0;
+let siteWeaveBalance = parseFloat(localStorage.getItem('siteWeaveBalance') || '0');
 
 async function connectWallet() {
   console.log('Tentando conectar a MetaMask...');
+  if (typeof ethers === 'undefined') {
+    console.error('ethers.js not loaded. Check the script src in HTML.');
+    alert('Failed to load ethers.js library. Check your internet connection or the CDN.');
+    return false;
+  }
   if (!window.ethereum) {
     console.error('MetaMask não detectada. Instale a extensão.');
     alert('MetaMask não instalada. Por favor, instale a extensão para usar o DreamTales.');
@@ -43,6 +48,7 @@ async function connectWallet() {
           });
           console.log('Rede adicionada. Tente conectar novamente.');
           alert('Rede Polygon Mainnet adicionada. Clique em "Connect MetaMask" novamente.');
+          return false;
         } else {
           alert('Erro ao alternar para Polygon Mainnet. Verifique a MetaMask.');
           return false;
@@ -73,7 +79,8 @@ async function connectWallet() {
       connectButton.classList.add('connected');
     }
 
-    // Mock de saldo inicial
+    // Carrega saldo do localStorage
+    siteWeaveBalance = parseFloat(localStorage.getItem('siteWeaveBalance') || '0');
     updateWallet();
     console.log('Conexão bem-sucedida!');
     return true;
@@ -91,6 +98,7 @@ if (window.ethereum) {
     if (accounts.length === 0) {
       walletAddress = '';
       siteWeaveBalance = 0;
+      localStorage.setItem('siteWeaveBalance', '0');
       const addressElement = document.getElementById('wallet-address');
       if (addressElement) {
         addressElement.textContent = 'Not connected';
@@ -115,6 +123,7 @@ if (window.ethereum) {
 
 // Atualiza interface da Wallet
 function updateWallet() {
+  localStorage.setItem('siteWeaveBalance', siteWeaveBalance.toString());
   const balanceElement = document.getElementById('weave-balance');
   const withdrawBtn = document.getElementById('withdraw-btn');
   const stakedBalance = document.getElementById('staked-balance');
@@ -135,12 +144,9 @@ function updateWallet() {
   }
 }
 
-document.getElementById('connect-wallet').addEventListener('click', connectWallet);
-</xaiArtifact>
-- **Alterações**:  
-  - Adiciona mais console.logs para depuração detalhada.  
-  - Melhor tratamento de erros, como rede não adicionada.  
-  - Persistência entre páginas com eventos `accountsChanged` e `chainChanged`.  
-  - Atualiza o botão para "Connected" apenas após sucesso.  
-
-#### 5. `app.js` (Script para Funcionalidades - Otimizado)
+document.addEventListener('DOMContentLoaded', () => {
+  const connectButton = document.getElementById('connect-wallet');
+  if (connectButton) {
+    connectButton.addEventListener('click', connectWallet);
+  }
+});

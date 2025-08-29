@@ -27,14 +27,14 @@
           <option value="sci-fi">Sci-Fi</option>
           <option value="mystery">Mystery</option>
         </select>
-        <button onclick="postStory()">Post Story <span>+0.5 WEAVE</span></button>
+        <button id="post-story-btn">Post Story <span>+0.5 WEAVE</span></button>
       </div>
       <div class="feed" id="storyweave-feed">
         <!-- Posts populated by JS -->
       </div>
     </section>
   </main>
-  <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   <script src="wallet.js"></script>
   <script src="app.js"></script>
 </body>
