@@ -239,6 +239,11 @@
     margin-bottom: 20px;
   }
   
+  .wallet-container p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
   .wallet-cards {
     display: flex;
     gap: 20px;
