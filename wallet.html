@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DreamTales - Wallet</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <h1>DreamTales</h1>
+    <button id="connect-wallet"><i class="fas fa-wallet"></i> Connect MetaMask</button>
+  </header>
+  <nav>
+    <a href="index.html" class="tab"><i class="fas fa-book"></i> StoryWeave</a>
+    <a href="dreams.html" class="tab"><i class="fas fa-moon"></i> Dreams</a>
+    <a href="wallet.html" class="tab active"><i class="fas fa-wallet"></i> Wallet</a>
+  </nav>
+  <main>
+    <!-- Wallet Section -->
+    <section id="wallet" class="tab-content active">
+      <div class="wallet-container">
+        <h2>Wallet</h2>
+        <div class="wallet-cards">
+          <div class="wallet-card">
+            <h3>WEAVE Balance</h3>
+            <p id="weave-balance">0 WEAVE</p>
+            <button id="withdraw-btn" onclick="requestWithdraw()" disabled>Withdraw to MetaMask</button>
+            <p class="withdraw-note">Requires 400 WEAVE to withdraw to your MetaMask wallet.</p>
+          </div>
+          <div class="wallet-card">
+            <h3>Stake WEAVE</h3>
+            <p id="staked-balance">0 WEAVE Staked</p>
+            <button onclick="stakeWeave()">Stake WEAVE</button>
+            <p class="stake-note">Stake WEAVE to earn rewards (coming soon).</p>
+          </div>
+        </div>
+        <h3>Transaction History</h3>
+        <ul id="transaction-history">
+          <!-- History populated by JS -->
+        </ul>
+      </div>
+    </section>
+  </main>
+  <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
+  <script src="wallet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

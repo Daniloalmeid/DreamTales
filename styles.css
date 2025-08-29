@@ -6,7 +6,7 @@
   }
   
   body {
-    background: linear-gradient(135deg, #f0f2f5, #e0e7ff);
+    background: linear-gradient(135deg, #e0e7ff, #c3ddff);
     padding: 20px;
     min-height: 100vh;
   }
@@ -16,30 +16,39 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px;
-    background: linear-gradient(90deg, #6200ea, #8b5cf6);
+    background: linear-gradient(90deg, #4f46e5, #7e22ce);
     color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
   
   header h1 {
-    font-size: 28px;
-    font-weight: 600;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 1px;
   }
   
   #connect-wallet {
-    padding: 10px 20px;
-    background: #bb86fc;
+    padding: 12px 24px;
+    background: #a855f7;
     border: none;
     color: white;
-    border-radius: 25px;
+    border-radius: 30px;
     cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     transition: transform 0.2s, background 0.3s;
   }
   
   #connect-wallet:hover {
-    background: #9f67e0;
+    background: #9333ea;
     transform: scale(1.05);
+  }
+  
+  #connect-wallet.connected {
+    background: #22c55e;
   }
   
   nav {
@@ -50,76 +59,89 @@
   }
   
   .tab {
-    padding: 12px 25px;
+    padding: 12px 30px;
     background: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 25px;
+    border: 1px solid #d1d5db;
+    border-radius: 30px;
     cursor: pointer;
+    font-size: 16px;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     transition: all 0.3s;
+    text-decoration: none;
+    color: #374151;
   }
   
   .tab.active {
-    background: #6200ea;
+    background: #4f46e5;
     color: white;
-    border-color: #6200ea;
+    border-color: #4f46e5;
   }
   
   .tab:hover {
-    background: #f1f5f9;
+    background: #f3f4f6;
   }
   
   .tab-content {
-    display: none;
-  }
-  
-  .tab-content.active {
     display: block;
   }
   
   .post-form {
     background: white;
     padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
-    max-width: 600px;
+    max-width: 700px;
     margin-left: auto;
     margin-right: auto;
   }
   
   textarea {
     width: 100%;
-    height: 120px;
+    height: 130px;
     padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
     resize: none;
     font-size: 16px;
+    transition: border-color 0.2s;
+  }
+  
+  textarea:focus {
+    border-color: #4f46e5;
+    outline: none;
   }
   
   select {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
     margin: 10px 0;
     font-size: 16px;
+    width: 100%;
   }
   
   .post-form button {
-    padding: 12px 20px;
-    background: linear-gradient(90deg, #6200ea, #8b5cf6);
+    padding: 12px 24px;
+    background: linear-gradient(90deg, #4f46e5, #7e22ce);
     color: white;
     border: none;
-    border-radius: 25px;
+    border-radius: 30px;
     cursor: pointer;
+    font-size: 16px;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     transition: transform 0.2s;
   }
   
   .post-form button span {
     font-size: 12px;
-    margin-left: 5px;
+    opacity: 0.8;
   }
   
   .post-form button:hover {
@@ -127,7 +149,7 @@
   }
   
   .feed {
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -137,33 +159,38 @@
   .post-card {
     background: white;
     padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     animation: fadeIn 0.5s ease-in;
   }
   
   .post-card p {
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.6;
     margin-bottom: 10px;
   }
   
   .post-card .author {
-    color: #666;
+    color: #6b7280;
     font-style: italic;
     font-size: 14px;
   }
   
   .post-card .category {
-    color: #6200ea;
+    color: #4f46e5;
     font-size: 14px;
     font-weight: 500;
   }
   
+  .post-card .timestamp {
+    color: #9ca3af;
+    font-size: 12px;
+  }
+  
   .post-card .actions {
     display: flex;
-    gap: 15px;
-    margin-top: 10px;
+    gap: 20px;
+    margin-top: 15px;
   }
   
   .post-card .action-btn {
@@ -173,12 +200,12 @@
     font-size: 16px;
     display: flex;
     align-items: center;
-    gap: 5px;
-    transition: transform 0.2s;
+    gap: 6px;
+    transition: transform 0.2s, color 0.3s;
   }
   
   .post-card .like-btn i {
-    color: #e91e63;
+    color: #ec4899;
   }
   
   .post-card .like-btn.liked i {
@@ -186,7 +213,7 @@
   }
   
   .post-card .share-btn i {
-    color: #6200ea;
+    color: #4f46e5;
   }
   
   .post-card .action-btn:hover {
@@ -195,32 +222,83 @@
   
   .post-card .action-btn span {
     font-size: 12px;
-    color: #666;
+    color: #6b7280;
   }
   
   .wallet-container {
     background: white;
     padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
     margin: 0 auto;
   }
   
-  .wallet-container p {
+  .wallet-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .wallet-cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .wallet-card {
+    background: linear-gradient(135deg, #f3f4f6, #e0e7ff);
+    padding: 20px;
+    border-radius: 12px;
+    flex: 1;
+    min-width: 250px;
+    text-align: center;
+  }
+  
+  .wallet-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .wallet-card p {
+    font-size: 24px;
+    font-weight: 600;
+    color: #4f46e5;
+  }
+  
+  .wallet-card button {
+    padding: 10px 20px;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
     margin: 10px 0;
-    font-size: 16px;
+    transition: transform 0.2s;
+  }
+  
+  .wallet-card button:disabled {
+    background: #d1d5db;
+    cursor: not-allowed;
+  }
+  
+  .wallet-card button:hover:not(:disabled) {
+    transform: scale(1.05);
+  }
+  
+  .wallet-card .withdraw-note, .wallet-card .stake-note {
+    font-size: 12px;
+    color: #6b7280;
   }
   
   .wallet-container ul {
     list-style: none;
-    margin-top: 10px;
+    margin-top: 20px;
   }
   
   .wallet-container li {
-    margin: 5px 0;
+    margin: 8px 0;
     font-size: 14px;
-    color: #333;
+    color: #374151;
   }
   
   @keyframes fadeIn {
@@ -238,7 +316,8 @@
   @media (max-width: 600px) {
     header {
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
+      padding: 12px;
     }
   
     nav {
@@ -252,5 +331,13 @@
   
     .post-card {
       padding: 15px;
+    }
+  
+    .feed {
+      max-width: 100%;
+    }
+  
+    .wallet-cards {
+      flex-direction: column;
     }
   }
