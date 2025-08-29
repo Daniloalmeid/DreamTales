@@ -66,19 +66,11 @@ async function connectWallet() {
     }
     signer = provider.getSigner();
     walletAddress = await signer.getAddress();
+    localStorage.setItem('walletAddress', walletAddress);
     console.log('Carteira conectada:', walletAddress);
 
     // Atualiza interface
-    const addressElement = document.getElementById('wallet-address');
-    if (addressElement) {
-      addressElement.textContent = walletAddress.slice(0, 6) + '...' + walletAddress.slice(-4);
-    }
-    const connectButton = document.getElementById('connect-wallet');
-    if (connectButton) {
-      connectButton.textContent = 'Connected';
-      connectButton.classList.add('connected');
-    }
-
+    updateWalletInterface();
     // Carrega saldo do localStorage
     siteWeaveBalance = parseFloat(localStorage.getItem('siteWeaveBalance') || '0');
     updateWallet();
@@ -91,37 +83,60 @@ async function connectWallet() {
   }
 }
 
-// Persiste conexão entre páginas
-if (window.ethereum) {
-  window.ethereum.on('accountsChanged', async (accounts) => {
-    console.log('Contas alteradas:', accounts);
-    if (accounts.length === 0) {
-      walletAddress = '';
-      siteWeaveBalance = 0;
-      localStorage.setItem('siteWeaveBalance', '0');
-      const addressElement = document.getElementById('wallet-address');
-      if (addressElement) {
-        addressElement.textContent = 'Not connected';
-      }
-      const connectButton = document.getElementById('connect-wallet');
-      if (connectButton) {
-        connectButton.textContent = 'Connect MetaMask';
-        connectButton.classList.remove('connected');
-      }
+// Verifica conexão existente ao carregar a página
+async function checkExistingConnection() {
+  console.log('Verificando conexão existente com MetaMask...');
+  if (typeof ethers === 'undefined' || !window.ethereum) {
+    console.log('ethers.js ou MetaMask não disponíveis.');
+    localStorage.removeItem('walletAddress');
+    updateWalletInterface();
+    return;
+  }
+  try {
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+    const accounts = await provider.listAccounts();
+    const network = await provider.getNetwork();
+    console.log('Contas detectadas:', accounts, 'Rede:', network.name);
+    if (accounts.length > 0 && network.chainId === 137) {
+      signer = provider.getSigner();
+      walletAddress = await signer.getAddress();
+      localStorage.setItem('walletAddress', walletAddress);
+      console.log('Conexão existente confirmada:', walletAddress);
+      updateWalletInterface();
+      siteWeaveBalance = parseFloat(localStorage.getItem('siteWeaveBalance') || '0');
       updateWallet();
-      console.log('Contas desconectadas.');
     } else {
-      await connectWallet();
+      console.log('Nenhuma conexão válida encontrada.');
+      walletAddress = '';
+      localStorage.removeItem('walletAddress');
+      updateWalletInterface();
     }
-  });
-
-  window.ethereum.on('chainChanged', () => {
-    console.log('Rede alterada. Recarregando página...');
-    window.location.reload();
-  });
+  } catch (error) {
+    console.error('Erro ao verificar conexão existente:', error);
+    walletAddress = '';
+    localStorage.removeItem('walletAddress');
+    updateWalletInterface();
+  }
 }
 
-// Atualiza interface da Wallet
+// Atualiza interface da carteira
+function updateWalletInterface() {
+  const addressElement = document.getElementById('wallet-address');
+  const connectButton = document.getElementById('connect-wallet');
+  if (addressElement) {
+    addressElement.textContent = walletAddress ? walletAddress.slice(0, 6) + '...' + walletAddress.slice(-4) : 'Not connected';
+  }
+  if (connectButton) {
+    connectButton.textContent = walletAddress ? 'Connected' : 'Connect MetaMask';
+    if (walletAddress) {
+      connectButton.classList.add('connected');
+    } else {
+      connectButton.classList.remove('connected');
+    }
+  }
+}
+
+// Atualiza interface do saldo
 function updateWallet() {
   localStorage.setItem('siteWeaveBalance', siteWeaveBalance.toString());
   const balanceElement = document.getElementById('weave-balance');
@@ -131,22 +146,45 @@ function updateWallet() {
     balanceElement.textContent = `${siteWeaveBalance.toFixed(1)} WEAVE`;
   }
   if (withdrawBtn) {
-    if (siteWeaveBalance >= 400) {
-      withdrawBtn.disabled = false;
-      withdrawBtn.style.background = '#4f46e5';
-    } else {
-      withdrawBtn.disabled = true;
-      withdrawBtn.style.background = '#d1d5db';
-    }
+    withdrawBtn.disabled = siteWeaveBalance < 400;
+    withdrawBtn.style.background = siteWeaveBalance >= 400 ? '#4f46e5' : '#d1d5db';
   }
   if (stakedBalance) {
     stakedBalance.textContent = '0 WEAVE Staked';
   }
 }
 
+// Persiste conexão entre páginas
+if (window.ethereum) {
+  window.ethereum.on('accountsChanged', async (accounts) => {
+    console.log('Contas alteradas:', accounts);
+    if (accounts.length === 0) {
+      walletAddress = '';
+      localStorage.removeItem('walletAddress');
+      siteWeaveBalance = 0;
+      localStorage.setItem('siteWeaveBalance', '0');
+      updateWalletInterface();
+      updateWallet();
+      console.log('Contas desconectadas.');
+    } else {
+      await connectWallet();
+    }
+  });
+
+  window.ethereum.on('chainChanged', () => {
+    console.log('Rede alterada. Recarregando página...');
+    walletAddress = '';
+    localStorage.removeItem('walletAddress');
+    window.location.reload();
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('Inicializando wallet.js...');
   const connectButton = document.getElementById('connect-wallet');
   if (connectButton) {
     connectButton.addEventListener('click', connectWallet);
   }
+  // Adiciona delay para garantir que o DOM esteja carregado
+  setTimeout(checkExistingConnection, 100);
 });
